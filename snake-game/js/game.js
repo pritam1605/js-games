@@ -16,7 +16,7 @@ function main(currentTime) {
     return;
   }
 
-  console.log(timeTakenToRender);
+  // console.log(timeTakenToRender);
   lastRenderTime = currentTime;
 
   update();

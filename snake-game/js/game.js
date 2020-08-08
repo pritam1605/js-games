@@ -3,7 +3,11 @@ import {
   update as updateFood
 } from './food.js';
 import {
+  blinkSnake,
   draw as drawSnake,
+
+
+  isSnakeDead,
   SNAKE_SPEED_PER_SECOND,
   update as updateSnake
 } from './snake.js';
@@ -14,6 +18,17 @@ let lastRenderTime = 0;
 const gameBoard = document.querySelector('.game-board');
 
 function main(currentTime) {
+
+  if (isSnakeDead()) {
+    blinkSnake(document.querySelectorAll('.snake'));
+    setTimeout(() => {
+      if (confirm("Play Again?")) {
+        window.location = '/snake-game'; // reload the app
+      }
+    }, 0);
+    return;
+  }
+
   const timeTakenToRender = (currentTime - lastRenderTime) / 1000;
   window.requestAnimationFrame(main);
 
@@ -21,7 +36,6 @@ function main(currentTime) {
     return;
   }
 
-  // console.log(timeTakenToRender);
   lastRenderTime = currentTime;
 
   update();

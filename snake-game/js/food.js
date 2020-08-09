@@ -1,7 +1,8 @@
 import {
+  GRID_SIZE,
   growSnake,
   isOnSnake
-} from './snake.js';
+} from "./snake.js";
 
 let foodPosition = placeFoodAtRandomPosition();
 
@@ -22,23 +23,14 @@ export function draw(gameBoard) {
 }
 
 function placeFoodAtRandomPosition() {
+  let newPosition;
 
-  let newPosition = {
-    x: 1,
-    y: 1
-  };
-  let rowPos;
-  let colPos;
-
-  do {
-    rowPos = Math.floor(Math.random() * 21 + 1);
-    colPos = Math.floor(Math.random() * 21 + 1);
+  while (!newPosition || isOnSnake(newPosition)) {
     newPosition = {
-      x: colPos,
-      y: rowPos
+      x: Math.floor(Math.random() * GRID_SIZE + 1),
+      y: Math.floor(Math.random() * GRID_SIZE + 1),
     };
   }
-  while (isOnSnake(newPosition) && foodPosition.x === colPos && foodPosition.y === rowPos);
 
   return newPosition;
 }

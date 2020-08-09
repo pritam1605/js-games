@@ -27,11 +27,30 @@ body {
 }
 
 .snake {
-  background-color: hsl(200, 100%, 50%);
+  background-color: hsl(94, 69%, 29%);
   border: .25vmin solid #000;
 }
 
 .food {
   background-color: hsl(50, 100%, 50%);
   border: .25vmin solid #000;
+}
+
+
+.blink {
+  animation: blink 250ms infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 50%;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

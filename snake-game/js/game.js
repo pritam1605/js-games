@@ -23,7 +23,7 @@ function main(currentTime) {
     blinkSnake(document.querySelectorAll('.snake'));
     setTimeout(() => {
       if (confirm("Play Again?")) {
-        window.location = '/js-games/snake-game'; // reload the app
+        window.location = '/js-games/snake-game/'; // reload the app
       }
     }, 0);
     return;

@@ -2,9 +2,9 @@ import {
   newPositionOfSnake
 } from "./input.js";
 
-export const SNAKE_SPEED_PER_SECOND = 5;
+export const SNAKE_SPEED_PER_SECOND = 8;
+export const GRID_SIZE = 21;
 const SNAKE_GROWTH_SIZE = 1;
-const GRID_SIZE = 21;
 
 const snakeBody = [{
   x: 10,
@@ -35,33 +35,26 @@ export function update() {
   snakeBody[0].y += position.y;
 }
 
-export function isOnSnake(position, ignoreHead = false) {
+export function isOnSnake(position) {
   return snakeBody.some(
-    (part, index) => {
-      console.log(ignoreHead);
-      console.log(index);
-      if (ignoreHead && index === 0) {
-        // console.log('I ma here');
-        return false;
-      } else {
-        // console.log('I ate');
-      }
-      return position.x === part.x && position.y === part.y;
-    }
+    (part) =>
+    position.x === part.x && position.y === part.y
   );
 }
 
 export function growSnake() {
   let count = 0;
   while (count < SNAKE_GROWTH_SIZE) {
-    snakeBody.push(snakeBody[snakeBody.length - 1]);
+    snakeBody.push({
+      ...snakeBody[snakeBody.length - 1]
+    });
     count++;
   }
 }
 
 export function isSnakeDead() {
-  return isSnakeOutsideGrid();
-  //  || snakeAteItself();
+  return isSnakeOutsideGrid() ||
+    snakeAteItself();
 }
 
 function isSnakeOutsideGrid() {
@@ -74,7 +67,16 @@ function isSnakeOutsideGrid() {
 }
 
 function snakeAteItself() {
-  return isOnSnake(snakeBody[0], true);
+  let check = false;
+  if (snakeBody.length <= 2) return false;
+  for (let i = 1; i < snakeBody.length; i++) {
+    if (snakeBody[0].x === snakeBody[i].x && snakeBody[0].y === snakeBody[i].y) {
+      check = true;
+      break;
+    }
+  }
+
+  return check;
 }
 
 export function blinkSnake(snakeSegments) {
